@@ -2,7 +2,7 @@ package com.example.spring.testing.demo.domain.model;
 
 public class Employee {
 	
-	private final EmployeeId id;
+	private EmployeeId id;
 	private String name;
 	private long salary;
 	
@@ -14,6 +14,10 @@ public class Employee {
 
 	public String getName() {
 		return name;
+	}
+
+	public void setId(EmployeeId id) {
+		this.id = id;
 	}
 
 	public void setName(String name) {

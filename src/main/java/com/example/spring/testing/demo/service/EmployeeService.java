@@ -2,13 +2,14 @@ package com.example.spring.testing.demo.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.example.spring.testing.demo.domain.model.Employee;
 import com.example.spring.testing.demo.domain.model.EmployeeId;
 import com.example.spring.testing.demo.repository.EmployeeRepository;
 
+@Service
 public class EmployeeService {
-	
-	private static final String TEMPORARY_IMPLEMENTATION = "Temporary Implementation";
 	
 	private EmployeeRepository employeeRepository;
 
@@ -17,18 +18,20 @@ public class EmployeeService {
 	}
 	
 	public List<Employee> getAllEmployees(){
-		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
+		return employeeRepository.findAll();
 	}
 	
-	public Employee getEmployeeById() {
-		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
+	public Employee getEmployeeById(EmployeeId id) {
+		return employeeRepository.findById(id).orElse(null);
 	}
 	
 	public Employee insertNewEmployee(Employee employee) {
-		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
+		employee.setId(null);
+		return employeeRepository.save(employee);
 	}
 	
 	public Employee updateEmployeeById(EmployeeId id, Employee replacement) {
-		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
+		replacement.setId(id);
+		return employeeRepository.save(replacement);
 	}
 }
