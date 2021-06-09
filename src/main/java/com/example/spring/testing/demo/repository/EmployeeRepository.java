@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.example.spring.testing.demo.domain.model.Employee;
-import com.example.spring.testing.demo.domain.model.EmployeeId;
 
 @Repository
 public class EmployeeRepository {
@@ -17,7 +16,7 @@ public class EmployeeRepository {
 		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
 	}
 	
-	public Optional<Employee> findById(EmployeeId id){
+	public Optional<Employee> findById(Long id){
 		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
 	}
 	

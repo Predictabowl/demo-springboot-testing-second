@@ -1,7 +1,8 @@
 package com.example.spring.testing.demo.domain.model;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Employee {
@@ -17,21 +18,22 @@ public class Employee {
 	 * 
 	 */
 	
-	@EmbeddedId
-	private EmployeeId id;
+	@Id
+	@GeneratedValue
+	private Long id;
 	private String name;
 	private long salary;
 	
 	public Employee() {}
 	
 
-	public Employee(EmployeeId id, String name, long salary) {
+	public Employee(Long id, String name, long salary) {
 		this.id = id;
 		this.name = name;
 		this.salary = salary;
 	}
 	
-	public void setId(EmployeeId id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -51,7 +53,7 @@ public class Employee {
 		this.salary = salary;
 	}
 
-	public EmployeeId getId() {
+	public Long getId() {
 		return id;
 	}
 
