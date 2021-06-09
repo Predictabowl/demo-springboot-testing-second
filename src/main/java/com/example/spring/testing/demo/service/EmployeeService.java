@@ -20,7 +20,7 @@ public class EmployeeService {
 		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
 	}
 	
-	public Employee getEmployeeById() {
+	public Employee getEmployeeById(EmployeeId id) {
 		throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
 	}
 	

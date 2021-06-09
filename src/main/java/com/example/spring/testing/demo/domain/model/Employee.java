@@ -2,9 +2,11 @@ package com.example.spring.testing.demo.domain.model;
 
 public class Employee {
 	
-	private final EmployeeId id;
+	private EmployeeId id;
 	private String name;
 	private long salary;
+	
+	public Employee() {}
 	
 	public Employee(EmployeeId id, String name, long salary) {
 		this.id = id;
@@ -30,6 +32,10 @@ public class Employee {
 
 	public EmployeeId getId() {
 		return id;
+	}
+
+	public void setId(EmployeeId id) {
+		this.id = id;
 	}
 
 	@Override
