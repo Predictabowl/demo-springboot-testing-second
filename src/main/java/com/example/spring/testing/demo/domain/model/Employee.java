@@ -1,15 +1,38 @@
 package com.example.spring.testing.demo.domain.model;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
+@Entity
 public class Employee {
 	
-	private final EmployeeId id;
+	/* We cannot autogenerate ID with an embedded ID,
+	 * if we want to use a auto generated ID we should 
+	 * soimply switch to Long.
+	 * This is just kept it as an embeddedID example
+	 * 
+	 * it's worth to notice that in the other branches we
+	 * assumes that the ID is auto generated, which of course will
+	 * cause a mess when we merge.
+	 * 
+	 */
+	
+	@EmbeddedId
+	private EmployeeId id;
 	private String name;
 	private long salary;
 	
+	public Employee() {}
+	
+
 	public Employee(EmployeeId id, String name, long salary) {
 		this.id = id;
 		this.name = name;
 		this.salary = salary;
+	}
+	
+	public void setId(EmployeeId id) {
+		this.id = id;
 	}
 
 	public String getName() {

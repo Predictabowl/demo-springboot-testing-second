@@ -1,8 +1,18 @@
 package com.example.spring.testing.demo.domain.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class EmployeeId {
+import javax.persistence.Embeddable;
+
+
+@Embeddable
+public class EmployeeId implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private final Long id;
 
 	public EmployeeId(Long id) {
