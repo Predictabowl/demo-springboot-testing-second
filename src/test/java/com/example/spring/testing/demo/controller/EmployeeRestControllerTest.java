@@ -4,6 +4,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,6 +25,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import com.example.spring.testing.demo.domain.model.Employee;
 import com.example.spring.testing.demo.domain.model.EmployeeId;
 import com.example.spring.testing.demo.service.EmployeeService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = EmployeeRestController.class)
@@ -84,4 +87,38 @@ class EmployeeRestControllerTest {
 				.andExpect(jsonPath("$.salary", is(1000)));
 	}
 	
+	@Test
+	void test_insertEmployee() throws Exception {
+		Employee requestBody = new Employee(null, "first", 1000);
+		when(employeeService.insertNewEmployee(requestBody ))
+			.thenReturn(new Employee(new EmployeeId(1L), "first", 1000));
+		
+		//To convert the object into a json we use Jackson ObjectMapper
+		String jsonBody = new ObjectMapper().writeValueAsString(requestBody);
+		
+		this.mvc.perform(post(FIXTURE_API_EMPLOYEES+"/new")
+			.contentType(MediaType.APPLICATION_JSON_VALUE)
+			.content(jsonBody))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("id.id", is(1)))
+			.andExpect(jsonPath("$.name", is("first")))
+			.andExpect(jsonPath("$.salary", is(1000)));
+	}
+	
+	
+	@Test
+	void test_updateEmployee() throws Exception {
+		Employee requestBody = new Employee(null, "first", 1000);
+		String jsonBody = new ObjectMapper().writeValueAsString(requestBody);
+		when(employeeService.updateEmployeeById(new EmployeeId(2L), requestBody))
+			.thenReturn(new Employee(new EmployeeId(2L), "someone else", 2000));
+		
+		this.mvc.perform(put(FIXTURE_API_EMPLOYEES+"/update/2")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(jsonBody))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.id.id", is(2)))
+			.andExpect(jsonPath("$.name", is("someone else")))
+			.andExpect(jsonPath("$.salary", is(2000)));
+	}
 }

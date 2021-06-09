@@ -77,7 +77,7 @@ class EmployeeRestControllerRestAssuredTest {
 			.thenReturn(new Employee(new EmployeeId(1L), "test", 1000));
 		
 		given()
-			.accept(MediaType.APPLICATION_JSON_VALUE)
+			.contentType(MediaType.APPLICATION_JSON_VALUE)
 			.body(restBodyEmployee)
 		.when()
 			.put("/api/employees/update/1")
